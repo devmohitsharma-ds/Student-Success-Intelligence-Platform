@@ -176,3 +176,36 @@ def delete_attendance(student_id):
         print("\n❌ Attendance Record Not Found!\n")
 
     connection.close()
+
+# ==============================
+# ATTENDANCE REPORT
+# ==============================
+
+def attendance_report():
+
+    connection = get_connection()
+
+    cursor = connection.cursor()
+
+    cursor.execute("SELECT COUNT(*) FROM attendance")
+
+    total_records = cursor.fetchone()[0]
+
+    cursor.execute("SELECT AVG(attendance_percentage) FROM attendance")
+
+    average = cursor.fetchone()[0]
+
+    print("\n====================================")
+    print("       ATTENDANCE REPORT")
+    print("====================================")
+
+    print(f"Total Attendance Records : {total_records}")
+
+    if average is None:
+        average = 0
+
+    print(f"Average Attendance       : {average:.2f}%")
+
+    print("====================================")
+
+    connection.close()

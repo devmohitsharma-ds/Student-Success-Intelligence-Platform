@@ -1,9 +1,9 @@
-from src.menu import start_menu
+from src.attendance import attendance_report
 
 
 def main():
 
-    start_menu()
+    attendance_report()
 
 
 if __name__ == "__main__":
