@@ -1,10 +1,10 @@
-# 🎓 Student Success Intelligence Platform (SSIP)
+#  Student Success Intelligence Platform (SSIP)
 
 A Python-based Student Success Intelligence Platform designed to manage student information, attendance, academic performance, lifestyle tracking, and analytics.
 
 ---
 
-## 📌 Project Overview
+##  Project Overview
 
 The Student Success Intelligence Platform (SSIP) is a modular desktop application developed using **Python** and **SQLite**.
 
@@ -12,21 +12,21 @@ The project helps educational institutions manage student records and provides i
 
 ---
 
-## ✨ Features
+##  Features
 
-### ✅ Module 1 – Database Foundation
+###  Module 1 – Database Foundation
 - SQLite Database
 - Database Connection
 - Project Structure
 
-### ✅ Module 2 – Student Management
+###  Module 2 – Student Management
 - Add Student
 - View Students
 - Search Student
 - Update Student
 - Delete Student
 
-### ✅ Module 3 – Attendance Management
+###  Module 3 – Attendance Management
 - Add Attendance
 - View Attendance
 - Search Attendance
@@ -36,7 +36,7 @@ The project helps educational institutions manage student records and provides i
 
 ---
 
-## 🛠️ Technologies Used
+##  Technologies Used
 
 - Python 3
 - SQLite3
@@ -46,7 +46,7 @@ The project helps educational institutions manage student records and provides i
 
 ---
 
-## 📂 Project Structure
+##  Project Structure
 
 ```text
 Student-Success-Intelligence-Platform/
@@ -64,15 +64,15 @@ Student-Success-Intelligence-Platform/
 
 ---
 
-## 🚀 Modules Completed
+##  Modules Completed
 
-- ✅ Module 1 – Database Foundation
-- ✅ Module 2 – Student Management
-- ✅ Module 3 – Attendance Management
+-  Module 1 – Database Foundation
+-  Module 2 – Student Management
+-  Module 3 – Attendance Management
 
 ---
 
-## 🔜 Upcoming Modules
+##  Upcoming Modules
 
 - 📘 Academic Management
 - 🌿 Lifestyle Management
@@ -82,11 +82,11 @@ Student-Success-Intelligence-Platform/
 
 ---
 
-## 👨‍💻 Author
+##  Author
 
 **Mohit Sharma**
 
-B.Tech CSE (Data Science)
+B.E CSE (Data Science)
 
 ---
 
