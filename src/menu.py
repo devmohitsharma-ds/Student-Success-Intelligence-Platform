@@ -14,6 +14,19 @@ from src.attendance import (
     delete_attendance
 )
 
+from src.academic import (
+    add_academic,
+    view_academics,
+    search_academic,
+    update_academic,
+    delete_academic,
+    academic_report
+)
+
+
+# =====================================
+# MAIN MENU
+# =====================================
 
 def start_menu():
 
@@ -25,7 +38,8 @@ def start_menu():
 
         print("1. Student Management")
         print("2. Attendance Management")
-        print("3. Exit")
+        print("3. Academic Management")
+        print("4. Exit")
 
         choice = input("\nEnter Choice : ")
 
@@ -39,14 +53,18 @@ def start_menu():
 
         elif choice == "3":
 
-            print("\nGoodbye!!🚀")
-            print("Have a nice day!!")
+            academic_menu()
+
+        elif choice == "4":
+
+            print("\nGoodbye!! 🚀")
+            print("Have a Nice Day!!")
 
             break
 
         else:
 
-            print("\nInvalid Choice\n")
+            print("\n❌ Invalid Choice!\n")
 
 
 # =====================================
@@ -101,7 +119,6 @@ def student_menu():
         elif choice == "4":
 
             email = input("Email : ")
-
             phone = input("New Phone : ")
 
             update_student(email, phone)
@@ -115,6 +132,10 @@ def student_menu():
         elif choice == "6":
 
             break
+
+        else:
+
+            print("\n❌ Invalid Choice!\n")
 
 
 # =====================================
@@ -139,7 +160,6 @@ def attendance_menu():
         if choice == "1":
 
             student_id = int(input("Student ID : "))
-
             percentage = float(input("Attendance % : "))
 
             add_attendance(student_id, percentage)
@@ -157,7 +177,6 @@ def attendance_menu():
         elif choice == "4":
 
             student_id = int(input("Student ID : "))
-
             percentage = float(input("New Attendance % : "))
 
             update_attendance(student_id, percentage)
@@ -171,3 +190,77 @@ def attendance_menu():
         elif choice == "6":
 
             break
+
+        else:
+
+            print("\n❌ Invalid Choice!\n")
+
+
+# =====================================
+# ACADEMIC MENU
+# =====================================
+
+def academic_menu():
+
+    while True:
+
+        print("\n======= ACADEMIC MENU =======")
+
+        print("1. Add Academic Record")
+        print("2. View Academic Records")
+        print("3. Search Academic Record")
+        print("4. Update Academic Record")
+        print("5. Delete Academic Record")
+        print("6. Academic Report")
+        print("7. Back")
+
+        choice = input("\nEnter Choice : ")
+
+        if choice == "1":
+
+            student_id = int(input("Student ID : "))
+            cgpa = float(input("CGPA : "))
+            backlogs = int(input("Backlogs : "))
+            quiz_average = float(input("Quiz Average : "))
+
+            add_academic(
+                student_id,
+                cgpa,
+                backlogs,
+                quiz_average
+            )
+
+        elif choice == "2":
+
+            view_academics()
+
+        elif choice == "3":
+
+            student_id = int(input("Student ID : "))
+
+            search_academic(student_id)
+
+        elif choice == "4":
+
+            student_id = int(input("Student ID : "))
+            new_cgpa = float(input("New CGPA : "))
+
+            update_academic(student_id, new_cgpa)
+
+        elif choice == "5":
+
+            student_id = int(input("Student ID : "))
+
+            delete_academic(student_id)
+
+        elif choice == "6":
+
+            academic_report()
+
+        elif choice == "7":
+
+            break
+
+        else:
+
+            print("\n❌ Invalid Choice!\n")

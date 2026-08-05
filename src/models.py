@@ -88,7 +88,6 @@ def create_tables():
     """)
 
     connection.commit()
-
     connection.close()
 
     print("All SSIP Tables Created Successfully!")
