@@ -9,7 +9,7 @@ The project is divided into different modules, where each module is responsible 
 ---
 
 ## Technologies Used
-
+ 
 - Python 3
 - SQLite3
 - Git
