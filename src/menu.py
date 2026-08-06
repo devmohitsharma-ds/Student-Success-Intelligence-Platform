@@ -23,6 +23,15 @@ from src.academic import (
     academic_report
 )
 
+from src.lifestyle import (
+    add_lifestyle,
+    view_lifestyle,
+    search_lifestyle,
+    update_lifestyle,
+    delete_lifestyle,
+    lifestyle_report
+)
+
 
 # =====================================
 # MAIN MENU
@@ -39,7 +48,8 @@ def start_menu():
         print("1. Student Management")
         print("2. Attendance Management")
         print("3. Academic Management")
-        print("4. Exit")
+        print("4. Lifestyle Management")
+        print("5. Exit")
 
         choice = input("\nEnter Choice : ")
 
@@ -57,14 +67,18 @@ def start_menu():
 
         elif choice == "4":
 
-            print("\nGoodbye!! 🚀")
+            lifestyle_menu()
+
+        elif choice == "5":
+
+            print("\nGoodbye!! Thank you for using the Student Success Intelligence Platform.\n")
             print("Have a Nice Day!!")
 
             break
 
         else:
 
-            print("\n❌ Invalid Choice!\n")
+            print("\n Invalid Choice!\n")
 
 
 # =====================================
@@ -135,7 +149,7 @@ def student_menu():
 
         else:
 
-            print("\n❌ Invalid Choice!\n")
+            print("\n Invalid Choice!\n")
 
 
 # =====================================
@@ -193,7 +207,7 @@ def attendance_menu():
 
         else:
 
-            print("\n❌ Invalid Choice!\n")
+            print("\n Invalid Choice!\n")
 
 
 # =====================================
@@ -263,4 +277,76 @@ def academic_menu():
 
         else:
 
-            print("\n❌ Invalid Choice!\n")
+            print("\n Invalid Choice!\n")
+
+
+# =====================================
+# LIFESTYLE MENU
+# =====================================
+
+def lifestyle_menu():
+
+    while True:
+
+        print("\n======= LIFESTYLE MENU =======")
+
+        print("1. Add Lifestyle Record")
+        print("2. View Lifestyle Records")
+        print("3. Search Lifestyle Record")
+        print("4. Update Lifestyle Record")
+        print("5. Delete Lifestyle Record")
+        print("6. Lifestyle Report")
+        print("7. Back")
+
+        choice = input("\nEnter Choice : ")
+
+        if choice == "1":
+
+            student_id = int(input("Student ID : "))
+            sleep_hours = float(input("Sleep Hours : "))
+            water_intake = float(input("Water Intake (L) : "))
+            exercise_minutes = int(input("Exercise Minutes : "))
+            screen_time = float(input("Screen Time (Hours) : "))
+
+            add_lifestyle(
+                student_id,
+                sleep_hours,
+                water_intake,
+                exercise_minutes,
+                screen_time
+            )
+
+        elif choice == "2":
+
+            view_lifestyle()
+
+        elif choice == "3":
+
+            student_id = int(input("Student ID : "))
+
+            search_lifestyle(student_id)
+
+        elif choice == "4":
+
+            student_id = int(input("Student ID : "))
+            new_sleep_hours = float(input("New Sleep Hours : "))
+
+            update_lifestyle(student_id, new_sleep_hours)
+
+        elif choice == "5":
+
+            student_id = int(input("Student ID : "))
+
+            delete_lifestyle(student_id)
+
+        elif choice == "6":
+
+            lifestyle_report()
+
+        elif choice == "7":
+
+            break
+
+        else:
+
+            print("\n Invalid Choice!\n")
