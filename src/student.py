@@ -47,11 +47,11 @@ def add_student(full_name,
 
         connection.commit()
 
-        print("\n✅ Student Added Successfully!\n")
+        print("\n Student Added Successfully!\n")
 
     except sqlite3.IntegrityError:
 
-        print("\n❌ Email already exists!\n")
+        print("\n Email already exists!\n")
 
     finally:
 
