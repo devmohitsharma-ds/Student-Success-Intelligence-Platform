@@ -241,7 +241,7 @@ The following features are planned for future development:
 
 # Author
 
-**Mohit Sharma**
+**Mohit Sharma and Hemant Raj**
 
 B.Tech CSE (Data Science)
 
