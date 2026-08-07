@@ -32,6 +32,13 @@ from src.lifestyle import (
     lifestyle_report
 )
 
+from src.analytics import (
+    student_summary,
+    attendance_analysis,
+    overall_student_report,
+    risk_analysis
+)
+
 
 # =====================================
 # MAIN MENU
@@ -49,7 +56,8 @@ def start_menu():
         print("2. Attendance Management")
         print("3. Academic Management")
         print("4. Lifestyle Management")
-        print("5. Exit")
+        print("5. Analytics & Reports")
+        print("6. Exit")
 
         choice = input("\nEnter Choice : ")
 
@@ -70,6 +78,10 @@ def start_menu():
             lifestyle_menu()
 
         elif choice == "5":
+
+            analytics_menu()
+
+        elif choice == "6":
 
             print("\nGoodbye!! Thank you for using the Student Success Intelligence Platform.\n")
             print("Have a Nice Day!!")
@@ -350,3 +362,114 @@ def lifestyle_menu():
         else:
 
             print("\n Invalid Choice!\n")
+
+# =====================================
+# RISK ANALYSIS
+# =====================================
+
+def risk_analysis(student_id):
+
+    connection = get_connection()
+
+    cursor = connection.cursor()
+
+    cursor.execute("""
+
+        SELECT
+
+            a.attendance_percentage,
+
+            ac.cgpa,
+
+            l.sleep_hours,
+            l.water_intake,
+            l.exercise_minutes,
+            l.screen_time
+
+        FROM students s
+
+        LEFT JOIN attendance a
+            ON s.student_id = a.student_id
+
+        LEFT JOIN academics ac
+            ON s.student_id = ac.student_id
+
+        LEFT JOIN lifestyle l
+            ON s.student_id = l.student_id
+
+        WHERE s.student_id = ?
+
+    """, (student_id,))
+
+    record = cursor.fetchone()
+
+    if not record:
+
+        print("\n Student Not Found!\n")
+        connection.close()
+        return
+
+    attendance = record[0]
+    cgpa = record[1]
+    sleep = record[2]
+    water = record[3]
+    exercise = record[4]
+    screen = record[5]
+
+    print("\n====================================")
+    print("       STUDENT RISK ANALYSIS")
+    print("====================================")
+
+    risk_score = 0
+
+    # Attendance
+    if attendance is not None:
+        if attendance >= 75:
+            print("Attendance  : Good ")
+        else:
+            print("Attendance  : At Risk ")
+            risk_score += 1
+
+    # Academics
+    if cgpa is not None:
+        if cgpa >= 6.0:
+            print("Academics   : Good ")
+        else:
+            print("Academics   : At Risk ")
+            risk_score += 1
+
+    # Lifestyle
+    lifestyle_warning = False
+
+    if sleep is not None and sleep < 6:
+        lifestyle_warning = True
+
+    if water is not None and water < 2:
+        lifestyle_warning = True
+
+    if exercise is not None and exercise < 20:
+        lifestyle_warning = True
+
+    if screen is not None and screen > 8:
+        lifestyle_warning = True
+
+    if lifestyle_warning:
+        print("Lifestyle   : Needs Improvement ")
+        risk_score += 1
+    else:
+        print("Lifestyle   : Good ")
+
+    print("------------------------------------")
+
+    if risk_score == 0:
+        overall = "LOW"
+    elif risk_score == 1:
+        overall = "MODERATE"
+    else:
+        overall = "HIGH"
+
+    print(f"Overall Risk : {overall}")
+
+    print("====================================")
+
+    connection.close()

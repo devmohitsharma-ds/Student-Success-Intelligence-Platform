@@ -35,7 +35,7 @@ def add_academic(student_id, cgpa, backlogs, quiz_average):
     connection.commit()
     connection.close()
 
-    print("\n✅ Academic Record Added Successfully!\n")
+    print("\n Academic Record Added Successfully!\n")
 
 
 # =====================================
@@ -97,7 +97,7 @@ def search_academic(student_id):
 
     else:
 
-        print("\n❌ Academic Record Not Found!\n")
+        print("\n Academic Record Not Found!\n")
 
     connection.close()
 
@@ -130,11 +130,11 @@ def update_academic(student_id, new_cgpa):
 
     if cursor.rowcount > 0:
 
-        print("\n✅ Academic Record Updated Successfully!\n")
+        print("\n Academic Record Updated Successfully!\n")
 
     else:
 
-        print("\n❌ Academic Record Not Found!\n")
+        print("\n Academic Record Not Found!\n")
 
     connection.close()
 
@@ -160,11 +160,11 @@ def delete_academic(student_id):
 
     if cursor.rowcount > 0:
 
-        print("\n✅ Academic Record Deleted Successfully!\n")
+        print("\n Academic Record Deleted Successfully!\n")
 
     else:
 
-        print("\n❌ Academic Record Not Found!\n")
+        print("\n Academic Record Not Found!\n")
 
     connection.close()
 
