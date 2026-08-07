@@ -2,14 +2,14 @@
 
 ## Overview
 
-Student Success Intelligence Platform (SSIP) is a Python-based console application developed to manage and organize student information using SQLite as the database.
+Student Success Intelligence Platform (SSIP) is a console-based application developed using Python and SQLite to manage and analyze student-related information. The project follows a modular architecture, where each module focuses on a specific area such as student management, attendance, academics, lifestyle, and analytics.
 
-The project is divided into different modules, where each module is responsible for handling a specific part of student data. The application follows a menu-driven approach and performs CRUD (Create, Read, Update and Delete) operations on the stored records.
+The application provides CRUD operations, report generation, and basic analytical features to help organize and evaluate student data efficiently.
 
 ---
 
 ## Technologies Used
- 
+
 - Python 3
 - SQLite3
 - Git
@@ -33,7 +33,8 @@ Student-Success-Intelligence-Platform/
 │   ├── student.py
 │   ├── attendance.py
 │   ├── academic.py
-│   └── lifestyle.py
+│   ├── lifestyle.py
+│   └── analytics.py
 │
 ├── main.py
 ├── README.md
@@ -43,20 +44,18 @@ Student-Success-Intelligence-Platform/
 
 ---
 
-# Modules
+# Features
 
 ## Module 1 – Database Setup
 
 - SQLite database connection
 - Database initialization
-- Table creation
-- Project structure setup
+- Automatic table creation
+- Centralized database configuration
 
 ---
 
 ## Module 2 – Student Management
-
-Features
 
 - Add Student
 - View Students
@@ -64,7 +63,7 @@ Features
 - Update Student
 - Delete Student
 
-Student Information
+### Student Details
 
 - Full Name
 - Gender
@@ -78,16 +77,14 @@ Student Information
 
 ## Module 3 – Attendance Management
 
-Features
-
-- Add Attendance
-- View Attendance
-- Search Attendance
-- Update Attendance
-- Delete Attendance
+- Add Attendance Record
+- View Attendance Records
+- Search Attendance Record
+- Update Attendance Record
+- Delete Attendance Record
 - Attendance Report
 
-Attendance Information
+### Attendance Details
 
 - Student ID
 - Attendance Percentage
@@ -96,8 +93,6 @@ Attendance Information
 
 ## Module 4 – Academic Management
 
-Features
-
 - Add Academic Record
 - View Academic Records
 - Search Academic Record
@@ -105,7 +100,7 @@ Features
 - Delete Academic Record
 - Academic Report
 
-Academic Information
+### Academic Details
 
 - Student ID
 - CGPA
@@ -116,8 +111,6 @@ Academic Information
 
 ## Module 5 – Lifestyle Management
 
-Features
-
 - Add Lifestyle Record
 - View Lifestyle Records
 - Search Lifestyle Record
@@ -125,13 +118,31 @@ Features
 - Delete Lifestyle Record
 - Lifestyle Report
 
-Lifestyle Information
+### Lifestyle Details
 
 - Student ID
 - Sleep Hours
 - Water Intake
 - Exercise Minutes
 - Screen Time
+
+---
+
+## Module 6 – Analytics
+
+- Student Summary
+- Attendance Analysis
+- Overall Student Report
+- Student Risk Analysis
+
+### Analytics Includes
+
+- Student Profile Summary
+- Attendance Status
+- Academic Performance Summary
+- Lifestyle Summary
+- Overall Student Report
+- Risk Classification
 
 ---
 
@@ -146,6 +157,26 @@ The project currently uses the following tables:
 
 ---
 
+# Project Workflow
+
+```
+Student Information
+        │
+        ▼
+Attendance Records
+        │
+        ▼
+Academic Records
+        │
+        ▼
+Lifestyle Records
+        │
+        ▼
+Analytics & Reports
+```
+
+---
+
 # How to Run
 
 Clone the repository
@@ -154,7 +185,7 @@ Clone the repository
 git clone https://github.com/Mohitjeet007/Student-Success-Intelligence-Platform.git
 ```
 
-Go to the project directory
+Move into the project directory
 
 ```bash
 cd Student-Success-Intelligence-Platform
@@ -172,38 +203,46 @@ python main.py
 
 | Module | Status |
 |---------|--------|
-| Database Setup | Completed |
-| Student Management | Completed |
-| Attendance Management | Completed |
-| Academic Management | Completed |
-| Lifestyle Management | Completed |
-| Analytics | In Progress |
-| Dashboard | Planned |
+| Database Setup | ✅ Completed |
+| Student Management | ✅ Completed |
+| Attendance Management | ✅ Completed |
+| Academic Management | ✅ Completed |
+| Lifestyle Management | ✅ Completed |
+| Analytics | ✅ Completed |
+| Dashboard | 🔄 In Progress |
 
 ---
 
-# Future Scope
+# Future Enhancements
 
-The following modules will be added in future versions of the project.
+The following features are planned for future development:
 
-- Student Analytics
-- Performance Dashboard
-- Student Performance Prediction
+- Dashboard Interface
 - Data Visualization
+- Student Performance Prediction
 - Export Reports
-- User Authentication
+- Authentication System
+- Faculty Management
+- Parent Portal
+- Notifications
 
 ---
 
 # Version History
 
-- Module 2 Completed
-- Module 3 Completed
-- Module 4 Completed
-- Module 5 Completed
+- Module 1 – Database Setup
+- Module 2 – Student Management
+- Module 3 – Attendance Management
+- Module 4 – Academic Management
+- Module 5 – Lifestyle Management
+- Module 6 – Analytics
 
 ---
 
 # Author
 
-Mohit Sharma and Hemant Raj
+**Mohit Sharma**
+
+B.Tech CSE (Data Science)
+
+Chandigarh University
