@@ -1,4 +1,3 @@
-@'
 # Student Success Intelligence Platform (SSIP)
 
 ## 📌 About the Project
