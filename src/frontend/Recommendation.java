@@ -1,6 +1,7 @@
 package frontend;
 
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.regex.Matcher;
@@ -12,6 +13,7 @@ public class Recommendation extends JPanel {
 
     private JPanel recommendationsPanel;
     private JLabel statusLabel;
+    private JLabel riskLabel;
 
     public Recommendation(int studentId) {
 
@@ -19,76 +21,114 @@ public class Recommendation extends JPanel {
 
         setLayout(new BorderLayout(20, 20));
         setBackground(new Color(245, 247, 250));
-        setBorder(
-                BorderFactory.createEmptyBorder(
-                        25, 30, 25, 30
-                )
-        );
+        setBorder(new EmptyBorder(25, 30, 25, 30));
 
-        // =========================
+        // =====================================================
         // HEADER
-        // =========================
+        // =====================================================
 
         JPanel header = new JPanel(new BorderLayout());
         header.setOpaque(false);
 
         JPanel titlePanel = new JPanel();
-        titlePanel.setLayout(
-                new BoxLayout(
-                        titlePanel,
-                        BoxLayout.Y_AXIS
-                )
-        );
+        titlePanel.setLayout(new BoxLayout(titlePanel, BoxLayout.Y_AXIS));
         titlePanel.setOpaque(false);
 
         JLabel title = new JLabel("Recommendations");
-        title.setFont(
-                new Font(
-                        "Arial",
-                        Font.BOLD,
-                        28
-                )
-        );
+        title.setFont(new Font("Arial", Font.BOLD, 28));
 
         JLabel subtitle = new JLabel(
-                "Personalized recommendations based on your performance."
+                "Personalized recommendations based on your academic and lifestyle performance."
         );
-        subtitle.setFont(
-                new Font(
-                        "Arial",
-                        Font.PLAIN,
-                        14
-                )
-        );
+        subtitle.setFont(new Font("Arial", Font.PLAIN, 14));
 
         titlePanel.add(title);
         titlePanel.add(Box.createVerticalStrut(5));
         titlePanel.add(subtitle);
 
-        header.add(
-                titlePanel,
-                BorderLayout.WEST
-        );
+        header.add(titlePanel, BorderLayout.WEST);
 
-        JButton refreshButton =
-                new JButton("Refresh");
-
+        JButton refreshButton = new JButton("Refresh");
         refreshButton.setFocusPainted(false);
-        refreshButton.addActionListener(
-                e -> loadRecommendations()
+        refreshButton.addActionListener(e -> loadRecommendations());
+
+        header.add(refreshButton, BorderLayout.EAST);
+
+        add(header, BorderLayout.NORTH);
+
+        // =====================================================
+        // MAIN PANEL
+        // =====================================================
+
+        JPanel mainPanel = new JPanel(new BorderLayout(0, 15));
+        mainPanel.setOpaque(false);
+
+        // Risk summary
+        JPanel riskPanel = new JPanel(new BorderLayout());
+        riskPanel.setBackground(Color.WHITE);
+        riskPanel.setBorder(
+                BorderFactory.createCompoundBorder(
+                        BorderFactory.createLineBorder(
+                                new Color(220, 225, 230)
+                        ),
+                        new EmptyBorder(15, 20, 15, 20)
+                )
         );
 
-        header.add(
-                refreshButton,
-                BorderLayout.EAST
+        JLabel riskTitle = new JLabel("Overall Risk");
+        riskTitle.setFont(new Font("Arial", Font.BOLD, 15));
+
+        riskLabel = new JLabel("Loading...");
+        riskLabel.setFont(new Font("Arial", Font.BOLD, 18));
+
+        riskPanel.add(riskTitle, BorderLayout.WEST);
+        riskPanel.add(riskLabel, BorderLayout.EAST);
+
+        mainPanel.add(riskPanel, BorderLayout.NORTH);
+
+        // Recommendations
+        recommendationsPanel = new JPanel();
+        recommendationsPanel.setLayout(
+                new BoxLayout(
+                        recommendationsPanel,
+                        BoxLayout.Y_AXIS
+                )
+        );
+        recommendationsPanel.setBackground(
+                new Color(245, 247, 250)
         );
 
-        // =========================
-        // STATUS
-        // =========================
+        JScrollPane scrollPane = new JScrollPane(
+                recommendationsPanel
+        );
 
-        statusLabel =
-                new JLabel("Loading recommendations...");
+        scrollPane.setBorder(
+                BorderFactory.createEmptyBorder()
+        );
+
+        scrollPane.getVerticalScrollBar()
+                .setUnitIncrement(16);
+
+        mainPanel.add(
+                scrollPane,
+                BorderLayout.CENTER
+        );
+
+        add(
+                mainPanel,
+                BorderLayout.CENTER
+        );
+
+        // =====================================================
+        // FOOTER
+        // =====================================================
+
+        JPanel footer = new JPanel(new BorderLayout());
+        footer.setOpaque(false);
+
+        statusLabel = new JLabel(
+                "Loading recommendations..."
+        );
 
         statusLabel.setFont(
                 new Font(
@@ -98,68 +138,9 @@ public class Recommendation extends JPanel {
                 )
         );
 
-        // =========================
-        // RECOMMENDATIONS PANEL
-        // =========================
-
-        recommendationsPanel =
-                new JPanel();
-
-        recommendationsPanel.setLayout(
-                new BoxLayout(
-                        recommendationsPanel,
-                        BoxLayout.Y_AXIS
-                )
-        );
-
-        recommendationsPanel.setBackground(
-                new Color(
-                        245,
-                        247,
-                        250
-                )
-        );
-
-        JScrollPane scrollPane =
-                new JScrollPane(
-                        recommendationsPanel
-                );
-
-        scrollPane.setBorder(
-                BorderFactory.createEmptyBorder()
-        );
-
-        scrollPane.getVerticalScrollBar()
-                .setUnitIncrement(16);
-
-        // =========================
-        // FOOTER
-        // =========================
-
-        JPanel footer =
-                new JPanel(
-                        new BorderLayout()
-                );
-
-        footer.setOpaque(false);
-
         footer.add(
                 statusLabel,
                 BorderLayout.WEST
-        );
-
-        // =========================
-        // ADD COMPONENTS
-        // =========================
-
-        add(
-                header,
-                BorderLayout.NORTH
-        );
-
-        add(
-                scrollPane,
-                BorderLayout.CENTER
         );
 
         add(
@@ -167,9 +148,9 @@ public class Recommendation extends JPanel {
                 BorderLayout.SOUTH
         );
 
-        // =========================
+        // =====================================================
         // LOAD DATA
-        // =========================
+        // =====================================================
 
         loadRecommendations();
     }
@@ -184,12 +165,13 @@ public class Recommendation extends JPanel {
                 "Loading recommendations..."
         );
 
+        riskLabel.setText("Loading...");
+
         recommendationsPanel.removeAll();
 
-        JLabel loading =
-                new JLabel(
-                        "Loading personalized recommendations..."
-                );
+        JLabel loading = new JLabel(
+                "Loading personalized recommendations..."
+        );
 
         loading.setFont(
                 new Font(
@@ -213,38 +195,47 @@ public class Recommendation extends JPanel {
                                 studentId
                         );
 
-                ArrayList<String> recommendations =
-                        extractRecommendations(
-                                response
+                ArrayList<RecommendationData> recommendations =
+                        extractRecommendations(response);
+
+                String overallRisk =
+                        extractString(
+                                response,
+                                "overall_risk"
                         );
 
                 SwingUtilities.invokeLater(() -> {
 
                     recommendationsPanel.removeAll();
 
+                    if (overallRisk.isEmpty()) {
+                        riskLabel.setText("N/A");
+                    } else {
+                        riskLabel.setText(overallRisk);
+                    }
+
                     if (recommendations.isEmpty()) {
 
                         addRecommendationCard(
                                 "General",
                                 "No specific recommendations were returned by the backend.",
-                                "Continue monitoring your academic and lifestyle performance."
+                                "Continue monitoring your academic and lifestyle performance.",
+                                "LOW"
                         );
 
                     } else {
 
-                        int number = 1;
-
-                        for (String recommendation :
-                                recommendations) {
+                        for (
+                                RecommendationData recommendation
+                                : recommendations
+                        ) {
 
                             addRecommendationCard(
-                                    "Recommendation "
-                                            + number,
-                                    recommendation,
-                                    "Follow this suggestion regularly and review your progress."
+                                    recommendation.category,
+                                    recommendation.message,
+                                    "Follow this suggestion regularly and review your progress.",
+                                    recommendation.priority
                             );
-
-                            number++;
                         }
                     }
 
@@ -266,8 +257,13 @@ public class Recommendation extends JPanel {
                     addRecommendationCard(
                             "Unable to Load",
                             "Could not retrieve recommendations from the backend.",
-                            ex.getMessage()
+                            ex.getMessage() == null
+                                    ? "Please check that the backend is running."
+                                    : ex.getMessage(),
+                            "ERROR"
                     );
+
+                    riskLabel.setText("N/A");
 
                     statusLabel.setText(
                             "Failed to load recommendations"
@@ -282,126 +278,106 @@ public class Recommendation extends JPanel {
     }
 
     // =====================================================
-    // EXTRACT RECOMMENDATIONS FROM JSON
+    // RECOMMENDATION DATA
     // =====================================================
 
-    private ArrayList<String> extractRecommendations(
+    private static class RecommendationData {
+
+        String category;
+        String message;
+        String priority;
+
+        RecommendationData(
+                String category,
+                String message,
+                String priority
+        ) {
+
+            this.category = category;
+            this.message = message;
+            this.priority = priority;
+        }
+    }
+
+    // =====================================================
+    // EXTRACT RECOMMENDATIONS
+    // =====================================================
+
+    private ArrayList<RecommendationData> extractRecommendations(
             String json
     ) {
 
-        ArrayList<String> result =
+        ArrayList<RecommendationData> result =
                 new ArrayList<>();
 
-        /*
-         * Expected backend format may contain:
-         *
-         * "recommendations": [
-         *     "Improve attendance",
-         *     "Increase sleep"
-         * ]
-         *
-         * This parser also handles simple recommendation
-         * string fields.
-         */
-
-        Pattern arrayPattern =
+        Pattern objectPattern =
                 Pattern.compile(
-                        "\"recommendations\"\\s*:\\s*\\[(.*?)\\]",
-                        Pattern.DOTALL
+                        "\\{\\s*\"category\"\\s*:\\s*\"((?:\\\\.|[^\"\\\\])*)\"\\s*,\\s*"
+                                + "\"message\"\\s*:\\s*\"((?:\\\\.|[^\"\\\\])*)\"\\s*,\\s*"
+                                + "\"priority\"\\s*:\\s*\"((?:\\\\.|[^\"\\\\])*)\"\\s*\\}"
                 );
 
-        Matcher arrayMatcher =
-                arrayPattern.matcher(json);
+        Matcher matcher =
+                objectPattern.matcher(json);
 
-        if (arrayMatcher.find()) {
+        while (matcher.find()) {
 
-            String arrayContent =
-                    arrayMatcher.group(1);
-
-            Pattern itemPattern =
-                    Pattern.compile(
-                            "\"((?:\\\\.|[^\"\\\\])*)\""
+            String category =
+                    cleanJsonText(
+                            matcher.group(1)
                     );
 
-            Matcher itemMatcher =
-                    itemPattern.matcher(
-                            arrayContent
+            String message =
+                    cleanJsonText(
+                            matcher.group(2)
                     );
 
-            while (itemMatcher.find()) {
-
-                String text =
-                        itemMatcher.group(1);
-
-                text =
-                        cleanJsonText(text);
-
-                if (!text.isEmpty()) {
-
-                    result.add(text);
-                }
-            }
-        }
-
-        /*
-         * If the backend returns an object/list with
-         * "recommendation" instead of "recommendations".
-         */
-
-        if (result.isEmpty()) {
-
-            Pattern singlePattern =
-                    Pattern.compile(
-                            "\"recommendation\"\\s*:\\s*\"((?:\\\\.|[^\"\\\\])*)\""
+            String priority =
+                    cleanJsonText(
+                            matcher.group(3)
                     );
 
-            Matcher matcher =
-                    singlePattern.matcher(json);
+            if (!message.isEmpty()) {
 
-            while (matcher.find()) {
-
-                String text =
-                        cleanJsonText(
-                                matcher.group(1)
-                        );
-
-                if (!text.isEmpty()) {
-
-                    result.add(text);
-                }
-            }
-        }
-
-        /*
-         * Some APIs may return a "recommendations"
-         * object containing category/message fields.
-         */
-
-        if (result.isEmpty()) {
-
-            Pattern messagePattern =
-                    Pattern.compile(
-                            "\"message\"\\s*:\\s*\"((?:\\\\.|[^\"\\\\])*)\""
-                    );
-
-            Matcher matcher =
-                    messagePattern.matcher(json);
-
-            while (matcher.find()) {
-
-                String text =
-                        cleanJsonText(
-                                matcher.group(1)
-                        );
-
-                if (!text.isEmpty()) {
-
-                    result.add(text);
-                }
+                result.add(
+                        new RecommendationData(
+                                category,
+                                message,
+                                priority
+                        )
+                );
             }
         }
 
         return result;
+    }
+
+    // =====================================================
+    // EXTRACT STRING
+    // =====================================================
+
+    private String extractString(
+            String json,
+            String key
+    ) {
+
+        Pattern pattern =
+                Pattern.compile(
+                        "\"" + Pattern.quote(key)
+                                + "\"\\s*:\\s*\"((?:\\\\.|[^\"\\\\])*)\""
+                );
+
+        Matcher matcher =
+                pattern.matcher(json);
+
+        if (matcher.find()) {
+
+            return cleanJsonText(
+                    matcher.group(1)
+            );
+        }
+
+        return "";
     }
 
     // =====================================================
@@ -425,19 +401,17 @@ public class Recommendation extends JPanel {
     // =====================================================
 
     private void addRecommendationCard(
-            String title,
+            String category,
             String recommendation,
-            String explanation
+            String explanation,
+            String priority
     ) {
 
         JPanel card =
                 new JPanel();
 
         card.setLayout(
-                new BoxLayout(
-                        card,
-                        BoxLayout.Y_AXIS
-                )
+                new BorderLayout(15, 10)
         );
 
         card.setBackground(Color.WHITE);
@@ -455,7 +429,7 @@ public class Recommendation extends JPanel {
                                         230
                                 )
                         ),
-                        BorderFactory.createEmptyBorder(
+                        new EmptyBorder(
                                 18,
                                 20,
                                 18,
@@ -464,16 +438,52 @@ public class Recommendation extends JPanel {
                 )
         );
 
-        JLabel titleLabel =
-                new JLabel(title);
+        // =====================================================
+        // CARD TOP
+        // =====================================================
 
-        titleLabel.setFont(
+        JPanel topPanel =
+                new JPanel(
+                        new BorderLayout()
+                );
+
+        topPanel.setOpaque(false);
+
+        JLabel categoryLabel =
+                new JLabel(category);
+
+        categoryLabel.setFont(
                 new Font(
                         "Arial",
                         Font.BOLD,
                         17
                 )
         );
+
+        JLabel priorityLabel =
+                new JLabel(priority);
+
+        priorityLabel.setFont(
+                new Font(
+                        "Arial",
+                        Font.BOLD,
+                        13
+                )
+        );
+
+        topPanel.add(
+                categoryLabel,
+                BorderLayout.WEST
+        );
+
+        topPanel.add(
+                priorityLabel,
+                BorderLayout.EAST
+        );
+
+        // =====================================================
+        // MESSAGE
+        // =====================================================
 
         JLabel recommendationLabel =
                 new JLabel(
@@ -492,6 +502,10 @@ public class Recommendation extends JPanel {
                 )
         );
 
+        // =====================================================
+        // EXPLANATION
+        // =====================================================
+
         JLabel explanationLabel =
                 new JLabel(
                         "<html><div style='width:650px;'>"
@@ -509,22 +523,41 @@ public class Recommendation extends JPanel {
                 )
         );
 
-        card.add(titleLabel);
+        JPanel content =
+                new JPanel();
 
-        card.add(
+        content.setLayout(
+                new BoxLayout(
+                        content,
+                        BoxLayout.Y_AXIS
+                )
+        );
+
+        content.setOpaque(false);
+
+        content.add(
+                topPanel
+        );
+
+        content.add(
                 Box.createVerticalStrut(10)
         );
 
-        card.add(
+        content.add(
                 recommendationLabel
         );
 
-        card.add(
+        content.add(
                 Box.createVerticalStrut(8)
         );
 
-        card.add(
+        content.add(
                 explanationLabel
+        );
+
+        card.add(
+                content,
+                BorderLayout.CENTER
         );
 
         recommendationsPanel.add(card);
