@@ -1,4 +1,5 @@
 from src.database import get_connection
+python backend/app.py
 
 
 # =====================================
