@@ -103,7 +103,7 @@ Attendance Percentage  : {record[2]}
 
     else:
 
-        print("\n❌ Attendance Record Not Found\n")
+        print("\n Attendance Record Not Found\n")
 
     connection.close()
 
